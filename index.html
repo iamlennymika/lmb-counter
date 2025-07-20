@@ -1,29 +1,50 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>LMB Counter – Overlay</title>
+  <title>Wins Overlay</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
-    body { margin: 0; background: transparent; }
-    #counter {
-      font-family: sans-serif;
-      font-size: 100px;
+    body {
+      margin: 0;
+      background-color: black;
       color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 64px;
       text-align: center;
-      line-height: 1;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
   </style>
 </head>
 <body>
-  <div id="counter">0</div>
+  <div id="wins">WINS: 0/0</div>
+
   <script>
+    let wins = 0;
+    let total = 0;
+
     const channel = new BroadcastChannel('lmbCounter');
-    let count = 0;
+
+    function updateText() {
+      document.getElementById('wins').textContent = `WINS: ${wins}/${total}`;
+    }
+
     channel.onmessage = e => {
-      if (e.data === 'increment') count++;
-      else if (e.data === 'decrement') count--;
-      else if (e.data === 'reset') count = 0;
-      document.getElementById('counter').textContent = count;
+      if (e.data === 'addWin') {
+        wins++;
+        total++;
+      } else if (e.data === 'addRound') {
+        total++;
+      } else if (e.data === 'reset') {
+        wins = 0;
+        total = 0;
+      }
+      updateText();
     };
   </script>
 </body>
