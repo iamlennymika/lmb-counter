@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>LMB Counter – Overlay</title>
+  <style>
+    body { margin: 0; background: transparent; }
+    #counter {
+      font-family: sans-serif;
+      font-size: 100px;
+      color: white;
+      text-align: center;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="counter">0</div>
+  <script>
+    const channel = new BroadcastChannel('lmbCounter');
+    let count = 0;
+    channel.onmessage = e => {
+      if (e.data === 'increment') count++;
+      else if (e.data === 'decrement') count--;
+      else if (e.data === 'reset') count = 0;
+      document.getElementById('counter').textContent = count;
+    };
+  </script>
+</body>
+</html>
