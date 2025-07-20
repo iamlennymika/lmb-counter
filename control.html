@@ -1,29 +1,43 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>LMB Counter – Steuerung</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wins Control</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
-    button {
-      font-size: 32px; padding: 20px 40px;
-      margin: 10px; width: 70%;
-      background: #333; color: white; border: none;
-      border-radius: 8px;
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      background: #f0f0f0;
     }
-    button:active { background: #555; }
+
+    button {
+      font-size: 28px;
+      padding: 20px 40px;
+      margin: 15px;
+      border: none;
+      border-radius: 8px;
+      background-color: #000;
+      color: #fff;
+      width: 80%;
+    }
+
+    button:active {
+      background-color: #333;
+    }
   </style>
 </head>
 <body>
-  <h1>LMB‑Counter</h1>
-  <button onclick="send('increment')">+1</button><br>
-  <button onclick="send('decrement')">‑1</button><br>
-  <button onclick="send('reset')">Reset</button>
+  <h2>WINS CONTROL</h2>
+  <button onclick="send('addWin')">+1 WIN</button><br>
+  <button onclick="send('addRound')">+1 ROUND</button><br>
+  <button onclick="send('reset')">RESET</button>
+
   <script>
     const channel = new BroadcastChannel('lmbCounter');
-    function send(action) {
-      channel.postMessage(action);
+    function send(msg) {
+      channel.postMessage(msg);
     }
   </script>
 </body>
